@@ -2,7 +2,7 @@
 module.exports = (sequelize, DataTypes) => {
   const Accounts = sequelize.define('Accounts', {
     accountName: DataTypes.STRING,
-    startingBalance: DataTypes.INTEGER,
+    accountBalance: DataTypes.INTEGER,
     userId: DataTypes.INTEGER
   }, {});
   Accounts.associate = function(models) {
