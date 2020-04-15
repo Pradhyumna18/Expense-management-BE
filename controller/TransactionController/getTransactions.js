@@ -1,18 +1,18 @@
 const models = require('../../models')
 const jwt = require('jsonwebtoken')
-async function getTransactionById(req, res, next) {
+async function getTransactions(req, res, next) {
     try {
-        const transaction = await models.Transactions.findOne({
+        const transactions = await models.Transactions.findAll({
             where: {
-                id: req.params.transactionId
+                userId: req.params.userId
             }
         })
         res.status(200).json({
-            transaction
+            transactions
         })
     }
     catch (err) {
         next(err)
     }
 }
-module.exports = getTransactionById;
+module.exports = getTransactions

@@ -2,12 +2,11 @@ const models = require('../../models')
 const jwt = require('jsonwebtoken')
 async function getAccountNameById(req, res, next) {
     try {
-        const token = req.headers['access-token']
-        const payload = jwt.decode(token)
+       
         const account = await models.Accounts.findAll({
             where: {
-                userId: payload.userId,
-                id:req.body.id
+                userId: req.params.userId,
+                id:req.params.accountId
             }
         })
         console.log(account)

@@ -2,12 +2,10 @@ const models = require('../../models')
 const jwt = require('jsonwebtoken')
 async function getAccountBalance(req, res, next) {
     try {
-        const token = req.headers['access-token']
-        const payload = jwt.decode(token)
         const account = await models.Accounts.findAll({
             where: {
-                userId: payload.userId,
-                accountName:req.body.accountName
+                userId: req.params.userId,
+                accountName:req.params.accountName
             }
         })
         obj = [...JSON.parse(JSON.stringify(account, null, 4))]

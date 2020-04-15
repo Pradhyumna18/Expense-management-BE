@@ -12,7 +12,7 @@ async function SignIn(req, res, next) {
         if (user) {
             const bool = passwordHash.verify(req.body.password, user.password);
             if (!bool) {
-                res.status(400).json({
+                res.json({
                     message: "username or password incorrect"
                 })
             }
@@ -24,7 +24,7 @@ async function SignIn(req, res, next) {
             }
         }
         else {
-            res.status(400).json({
+            res.json({
                 message: "username or password incorrect"
             })
         }

@@ -2,11 +2,10 @@ const models = require('../../models')
 const jwt = require('jsonwebtoken')
 async function editTransaction(req, res, next) {
     try {
-        const token = req.headers['access-token']
-        const payload = jwt.decode(token)
+       
         const account = await models.Accounts.findOne({
             where: {
-                userId: payload.userId,
+                userId: req.body.userId,
                 accountName: req.body.accountName
             }
         })
@@ -17,20 +16,20 @@ async function editTransaction(req, res, next) {
         })
         delete req.body.transactionId
         if (transaction.transactionType == "income")
-            bal = account.accountBalance - transaction.amount
+            bal =Number( account.accountBalance )-Number( transaction.amount)
         else
-            bal = account.accountBalance + transaction.amount
+            bal = Number(account.accountBalance )+Number( transaction.amount)
         if (req.body.transactionType == "income") {
-            bal = bal + req.body.amount
+            bal = bal +Number( req.body.amount)
             await account.update({ accountBalance: bal })
         }
         else {
-            bal = bal - req.body.amount
+            bal = bal -Number( req.body.amount)
             await account.update({ accountBalance: bal })
         }
         delete req.body.accountName
 
-        transaction.update({
+      await  transaction.update({
             transactionType: req.body.transactionType,
             description: req.body.description,
             amount: req.body.amount,
