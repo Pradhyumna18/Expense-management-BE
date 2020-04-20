@@ -6,7 +6,7 @@ chai.use(chaiHttp);
 describe("POST /addAccount", () => {
     it("addAccount", async () => {
         const response = await chai.request(app).post("/addAccount").send({
-            "accountName": "sbi",
+            "accountName": undefined,
             "accountBalance": 100,
             "userId": 21
         })
@@ -19,8 +19,7 @@ describe("POST /addAccount", () => {
         }
         else {
             expect(response.body).be.a('object')
-            expect(response.body).to.have.property('message')
-            if (response.body.message == 'Account already exist!') {
+            if (response.body.error == {}) {
                 expect(response).to.have.status(400);
                 expect(response.body).to.have.property('success').to.equal(false)
             }

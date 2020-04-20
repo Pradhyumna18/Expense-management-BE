@@ -19,8 +19,7 @@ describe("POST /signup", () => {
     }
     else {
       expect(response.body).be.a('object')
-      expect(response.body).to.have.property('message')
-      if (response.body.message == 'User already exist!') {
+      if (response.body.error == {}) {
         expect(response).to.have.status(400);
         expect(response.body).to.have.property('success').to.equal(false)
       }
