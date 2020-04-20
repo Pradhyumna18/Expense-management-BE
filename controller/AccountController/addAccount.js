@@ -1,5 +1,4 @@
 const models = require('../../models')
-const jwt = require('jsonwebtoken')
 async function addAccount(req, res, next) {
     try {
         const account = await models.Accounts.findOne({
@@ -9,15 +8,16 @@ async function addAccount(req, res, next) {
             }
         })
         if (!account) {
-            console.log(req.body)
             const account = await models.Accounts.create(req.body)
-            res.status(200).json({
+            res.status(201).json({
+                success: true,
                 account
             })
         }
         else {
-            res.json({
-                message: "account name already exists"
+            res.status(400).json({
+                success: false,
+                message: "Account already exist!"
             })
         }
     }

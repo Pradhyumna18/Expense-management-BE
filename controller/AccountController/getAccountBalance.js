@@ -1,5 +1,4 @@
 const models = require('../../models')
-const jwt = require('jsonwebtoken')
 async function getAccountBalance(req, res, next) {
     try {
         const account = await models.Accounts.findAll({
@@ -11,6 +10,7 @@ async function getAccountBalance(req, res, next) {
         obj = [...JSON.parse(JSON.stringify(account, null, 4))]
         balance=obj[0].accountBalance
         res.status(200).json({
+            success:true,
            balance
         })
     }

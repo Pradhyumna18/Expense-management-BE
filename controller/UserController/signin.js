@@ -12,19 +12,22 @@ async function SignIn(req, res, next) {
         if (user) {
             const bool = passwordHash.verify(req.body.password, user.password);
             if (!bool) {
-                res.json({
+                res.status(401).json({
+                    success: false,
                     message: "username or password incorrect"
                 })
             }
             else {
                 var token = jwt.sign({ userName: req.body.userName, userId: user.id }, "abcd")
                 res.status(200).json({
+                    success: true,
                     token: token
                 })
             }
         }
         else {
-            res.json({
+            res.status(401).json({
+                success: false,
                 message: "username or password incorrect"
             })
         }

@@ -15,11 +15,11 @@ async function deleteTransaction(req, res, next) {
         })
         if (transaction.transactionType == "income") {
 
-            bal =Number( account.accountBalance) -Number( transaction.amount)
+            bal = Number(account.accountBalance) - Number(transaction.amount)
             await account.update({ accountBalance: bal })
         }
         else {
-            bal = Number(account.accountBalance )+Number( transaction.amount)
+            bal = Number(account.accountBalance) + Number(transaction.amount)
             await account.update({ accountBalance: bal })
         }
         await models.Transactions.destroy({
@@ -28,11 +28,11 @@ async function deleteTransaction(req, res, next) {
             }
         })
         res.status(200).json({
+            success: true,
             transaction
         })
     }
     catch (err) {
-
         next(err)
     }
 }

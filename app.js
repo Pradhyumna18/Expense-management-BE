@@ -1,20 +1,24 @@
 const express = require('express')
 const app = express();
+const dotenv = require("dotenv")
 const bodyparser = require('body-parser')
 const routes = require('./Routes/routes')
-const cors=require('cors');
-const port = 8000
+const cors = require('cors')
+dotenv.config()
+const port = process.env.PORT
 app.use(bodyparser.json())
 app.use(cors())
 app.use('/', routes)
-app.listen(port, {})
+app.listen(port, () => {
+    console.log("listening to port ", port)
+})
 app.use((error, req, res, next) => {
-    res.status(400).json(
+    res.status(500).json(
         {
             success: false,
             error
-
         }
     )
 }
 );
+module.exports = app
