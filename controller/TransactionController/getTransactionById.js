@@ -1,5 +1,11 @@
 const models = require('../../models')
 const jwt = require('jsonwebtoken')
+/** @description Gets transaction based on transaction id.
+ * @param {object} req - Request object with transaction id.
+ * @param {object} res - Response object with a boolean variable success and object containing transaction details  if request is success else error.
+ * @param {function next(error) {   
+}} next - calls the error handling middleware.
+*/
 async function getTransactionById(req, res, next) {
     try {
         console.log(req.params.transactionId)
@@ -8,7 +14,6 @@ async function getTransactionById(req, res, next) {
                 id: req.params.transactionId
             }
         })
-     //   console.log(req.params.transactionId,transaction)
         res.status(200).json({
             success:true,
             transaction

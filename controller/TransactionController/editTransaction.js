@@ -1,5 +1,12 @@
 const models = require('../../models')
-const jwt = require('jsonwebtoken')
+
+/** @description Edits a transaction based on transactionId.
+ * @param {object} req - Request object with userId,accountName,transactionType,amount,date,description,transactionId.
+ * @param {object} res - Response object with a boolean variable success if request is success else error.
+ * @param {function next(error) {   
+}} next - calls the global error handler.
+*/
+
 async function editTransaction(req, res, next) {
     try {
        

@@ -34,5 +34,6 @@ routes.delete('/deleteTransaction/:transactionId',deleteTransaction)
 routes.get('/getTransactionsByAccountName/:userId/:accountName',getTransactionsByAccountName)
 routes.get('/getTransactionById/:transactionId',getTransactionById)
 routes.get('/getTransactions/:userId',getTransactions)
+
 module.exports=routes;
 

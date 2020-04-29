@@ -1,5 +1,11 @@
 const models = require('../../models')
 const jwt = require('jsonwebtoken')
+/** @description Deletes a transaction based on the transactionId.
+ * @param {object} req - Request object with transactionId.
+ * @param {object} res - Reponse object with a boolean variable success if request is success else error.
+ * @param {function next(error) {   
+}} next - calls the global error handler
+*/
 async function deleteTransaction(req, res, next) {
     try {
 

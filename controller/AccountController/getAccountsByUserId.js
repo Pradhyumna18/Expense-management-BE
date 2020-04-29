@@ -1,5 +1,10 @@
 const models = require('../../models')
-const jwt = require('jsonwebtoken')
+/** @description gets account details based on the userId.
+ * @param {object} req - Request object with userId.
+ * @param {object} res - Reponse object with a boolean variable success and required accounts if request is success else error message.
+ * @param {function next(error) {   
+}} next - calls the global error handler.
+*/
 async function getAccountsByUserId(req, res, next) {
     try {
 

@@ -1,5 +1,12 @@
 const models = require('../../models')
 let passwordHash = require('password-hash')
+
+/** @description creates a new user with username and password.
+ * @param {object} req - Request object containing username and password.
+ * @param {object} res - Reponse object with a boolean variable success and user if request is success else  error message .
+ * @param {function next(error) {   
+}} next - calls the global error handler function.
+*/
 async function SignUp(req, res, next) {
     try {
         const user = await models.Users.findOne({
@@ -29,12 +36,7 @@ async function SignUp(req, res, next) {
         }
     }
     catch (err) {
-        res.status(500).json(
-            {
-                success: false,
-                message: "error"
-            }
-        );
+       next(err)
     }
 }
 module.exports = SignUp;

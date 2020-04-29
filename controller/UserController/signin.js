@@ -2,6 +2,13 @@ const models = require('../../models')
 let jwt = require('jsonwebtoken')
 const passwordHash = require('password-hash')
 
+/** @description Logins a user if username and password are authenticated.
+ * @param {object} req - Request object containing username and password.
+ * @param {object} res -  Reponse object with a boolean variable success and string variable token if request is success else  error message.
+ * @param {function next(error) {   
+}} next - calls the global error handler function .
+*/
+
 async function SignIn(req, res, next) {
     try {
         const user = await models.Users.findOne({
