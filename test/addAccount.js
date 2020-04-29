@@ -6,7 +6,7 @@ chai.use(chaiHttp);
 describe("POST /addAccount", () => {
     it("addAccount", async () => {
         const response = await chai.request(app).post("/addAccount").send({
-            "accountName": undefined,
+            "accountName": "sbi",
             "accountBalance": 100,
             "userId": 21
         })
@@ -19,7 +19,7 @@ describe("POST /addAccount", () => {
         }
         else {
             expect(response.body).be.a('object')
-            if (response.body.error == {}) {
+            if (response.body.error == undefined) {
                 expect(response).to.have.status(400);
                 expect(response.body).to.have.property('success').to.equal(false)
             }

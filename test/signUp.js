@@ -19,7 +19,8 @@ describe("POST /signup", () => {
     }
     else {
       expect(response.body).be.a('object')
-      if (response.body.error == {}) {
+      console.log(response.body.error)
+      if (response.body.error == undefined) {
         expect(response).to.have.status(400);
         expect(response.body).to.have.property('success').to.equal(false)
       }
