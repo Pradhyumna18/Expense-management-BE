@@ -1,5 +1,6 @@
 
 const Joi = require('joi');
+const logger=require('../log')
 const signUpValidation = async (req, res, next) => {
 
   try {
@@ -14,7 +15,7 @@ const signUpValidation = async (req, res, next) => {
 
   }
   catch (error) {
-    console.log(error)
+    logger.error(error.details[0].message)
     res.status(400).json({
       success: false,
       message: error.details[0].message

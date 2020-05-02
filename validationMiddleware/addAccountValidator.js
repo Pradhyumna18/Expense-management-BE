@@ -1,9 +1,8 @@
 const Joi = require('joi');
-
+const logger=require('../log')
 const addAccountValidation = async (req, res, next) => {
 
     try {
-        console.log("add accoutn")
         const addAccountDataSchema = Joi.object({
             accountName: Joi.string().alphanum().required(),
             accountBalance: Joi.number().min(0),
@@ -14,7 +13,7 @@ const addAccountValidation = async (req, res, next) => {
 
     }
     catch (error) {
-        console.log(error)
+        logger.error(error.details[0].message)
         res.status(400).json({
             success: false,
             message: error.details[0].message,

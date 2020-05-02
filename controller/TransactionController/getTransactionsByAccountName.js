@@ -1,16 +1,16 @@
 const models = require('../../models')
-const jwt = require('jsonwebtoken')
+const logger=require('../../log')
 
 /** @description Gets transactions based on the account name.
  * @param {object} req - Request object with userId and accountName.
  * @param {object} res - Response object with a boolean variable success and array of transactions if request is success else error.
- * @param {function next(error) {   
-}} next - calls the global error handler function. 
+  * @param {function} - callback function which calls the global error handler
+ * @returns {Promise}
 */
 
 async function getTransactionsByAccountName(req, res, next) {
     try {
-
+        logger.info(req.url)
         const account = await models.Accounts.findOne({
             where: {
                 userId: req.params.userId,
@@ -27,9 +27,12 @@ async function getTransactionsByAccountName(req, res, next) {
             success:true,
             transactions
         })
+        logger.info("getTransactionsByAccountName.successful")
     }
 
     catch (err) {
+        logger.error(req.url)
+        logger.error(err.name)
         next(err)
     }
 }

@@ -1,12 +1,14 @@
 const models = require('../../models')
+const logger=require('../../log')
 /** @description Gives account balance of a account.
  * @param {object} req - Request object with account name and userId.
- * @param {object} res - Reponse object with a boolean variable success and balance if request is success else error message.
- * @param {function next(error) {   
-}} next - calls the global error handler.
+ * @param {object} res - Response object with a boolean variable success and balance if request is success else error message.
+ * @param {function} - callback function which calls the global error handler
+ * @returns {Promise}
 */
 async function getAccountBalance(req, res, next) {
     try {
+        logger.info(req.url)
         const account = await models.Accounts.findAll({
             where: {
                 userId: req.params.userId,
@@ -19,8 +21,11 @@ async function getAccountBalance(req, res, next) {
             success: true,
             balance
         })
+        logger.info("getAccountBalance.successful")
     }
     catch (err) {
+        logger.error(req.url)
+        logger.error(err.name)
         next(err)
     }
 }

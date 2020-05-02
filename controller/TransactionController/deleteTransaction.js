@@ -1,14 +1,15 @@
 const models = require('../../models')
 const jwt = require('jsonwebtoken')
+const logger=require('../../log')
 /** @description Deletes a transaction based on the transactionId.
  * @param {object} req - Request object with transactionId.
- * @param {object} res - Reponse object with a boolean variable success if request is success else error.
- * @param {function next(error) {   
-}} next - calls the global error handler
+ * @param {object} res - Response object with a boolean variable success if request is success else error.
+  * @param {function} - callback function which calls the global error handler
+ * @returns {Promise}
 */
 async function deleteTransaction(req, res, next) {
     try {
-
+        logger.info(req.url)
         const transaction = await models.Transactions.findOne({
             where: {
                 id: req.params.transactionId
@@ -37,8 +38,11 @@ async function deleteTransaction(req, res, next) {
             success: true,
             transaction
         })
+        logger.info("deleteTransaction.successful")
     }
     catch (err) {
+        logger.error(req.url)
+        logger.error(err.name)
         next(err)
     }
 }

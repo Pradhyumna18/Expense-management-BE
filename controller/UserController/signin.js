@@ -1,16 +1,16 @@
 const models = require('../../models')
 let jwt = require('jsonwebtoken')
 const passwordHash = require('password-hash')
-
-/** @description Logins a user if username and password are authenticated.
- * @param {object} req - Request object containing username and password.
- * @param {object} res -  Reponse object with a boolean variable success and string variable token if request is success else  error message.
- * @param {function next(error) {   
-}} next - calls the global error handler function .
+const logger = require('../../log')
+/** @description logins a user if username and password are correct.
+ * @param {object} req - Request object with username and password.
+ * @param {object} res - Response object with a boolean variable success and token if request is success or error message if there is an error.
+ * @param {function} - callback function which calls the global error handler
+ * @returns {Promise}
 */
-
 async function SignIn(req, res, next) {
     try {
+        logger.info(req.url)
         const user = await models.Users.findOne({
             where: {
                 userName: req.body.userName
@@ -23,6 +23,8 @@ async function SignIn(req, res, next) {
                     success: false,
                     message: "username or password incorrect"
                 })
+                logger.error(req.url)
+                logger.error("signin.request.failed.as.username.or.password.incorrect")
             }
             else {
                 var token = jwt.sign({ userName: req.body.userName, userId: user.id }, "abcd")
@@ -30,6 +32,7 @@ async function SignIn(req, res, next) {
                     success: true,
                     token: token
                 })
+                logger.info("signin.request.successful")
             }
         }
         else {
@@ -37,9 +40,13 @@ async function SignIn(req, res, next) {
                 success: false,
                 message: "username or password incorrect"
             })
+            logger.error(req.url)
+            logger.error("signin.request.failed.as.username.or.password.incorrect")
         }
     }
     catch (err) {
+        logger.error(req.url)
+        logger.error(err.name)
         next(err)
     }
 }
