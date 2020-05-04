@@ -4,31 +4,35 @@ const chaiHttp = require("chai-http");
 
 const { expect } = chai;
 chai.use(chaiHttp);
-describe("POST /signin", () => {
-    it("signin", async()=> {
+describe("POST /signin",function () {
+    it("it should login a user", async () => {
         const response = await chai.request(app).post("/signin").send({
-            "userName": "pradhyumna",
-            "password": "prhyumna"
+            "userName": "prad@gmail.com",
+            "password": "b2@b.b"
         })
 
-        if (response.error == false) {
-            expect(response.body).be.a('object')
-            expect(response.body).to.have.property('token')
-            expect(response).to.have.status(200);
-            expect(response.body).to.have.property('success').to.equal(true)
-        }
-        else {
-            expect(response.body).be.a('object')
-            expect(response.body).to.have.property('message')
-            if (response.body.message == 'username or password incorrect') {
-                expect(response).to.have.status(401);
-                expect(response.body).to.have.property('success').to.equal(false)
-            }
-            else {
-                expect(response).to.have.status(500);
-                expect(response.body).to.have.property('success').to.equal(false)
-            }
-        }
+        expect(response.body).to.have.property('token')
+        expect(response).to.have.status(200);
+        expect(response.body).to.have.property('success').to.equal(true)
+
+    });
+    it("it should throw an error if username or password incorrect", async () => {
+        const response = await chai.request(app).post("/signin").send({
+            "userName": "b2@b.b",
+            "password": "b2@b."
+        })
+        expect(response).to.have.status(401);
+        expect(response.body).to.have.property('success').to.equal(false)
+
+    });
+    it("it shouls return an error if username or password invalid", async () => {
+        const response = await chai.request(app).post("/signin").send({
+            "userName": undefined,
+            "password": "b2@b.b"
+        })
+        expect(response).to.have.status(500);
+        expect(response.body).to.have.property('success').to.equal(false)
+
     });
 });
 

@@ -4,31 +4,30 @@ const chaiHttp = require("chai-http");
 
 const { expect } = chai;
 chai.use(chaiHttp);
-describe("POST /signup", () => {
+describe("POST /signup",function() {
   it("signup", async () => {
     const response = await chai.request(app).post("/signup").send({
-      "userName": "pradhyumna",
-      "password": "pradhyumna"
+      "userName": "pra@gmail.com",
+      "password": "b2@b.b"
     })
-
-    if (response.error == false) {
-      expect(response.body).be.a('object')
-      expect(response.body).to.have.property('success')
       expect(response).to.have.status(201);
       expect(response.body).to.have.property('success').to.equal(true)
-    }
-    else {
-      expect(response.body).be.a('object')
-      console.log(response.body.error)
-      if (response.body.error == undefined) {
-        expect(response).to.have.status(400);
-        expect(response.body).to.have.property('success').to.equal(false)
-      }
-      else {
-        expect(response).to.have.status(500);
-        expect(response.body).to.have.property('success').to.equal(false)
-      }
-    }
+  });
+  it("it should throw an error if User already exist", async () => {
+    const response = await chai.request(app).post("/signup").send({
+      "userName": "prad@gmail.com",
+      "password": "b2@b.b"
+    })
+      expect(response).to.have.status(400);
+      expect(response.body).to.have.property('success').to.equal(false)
+  });
+  it("it should throw an error if username is invalid", async () => {
+    const response = await chai.request(app).post("/signup").send({
+      "userName": undefined,
+      "password": "b2@b.b"
+    })
+      expect(response).to.have.status(400);
+      expect(response.body).to.have.property('success').to.equal(false)
   });
 });
 

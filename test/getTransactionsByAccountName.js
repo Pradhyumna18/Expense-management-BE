@@ -19,3 +19,26 @@ describe("GET /getAccountBalance", () => {
     });
 });
 
+describe("GET /transactionByAccountName", () => {
+    it("it should return transactions by accountName", async () => {
+      const response = await chai
+        .request(app)
+        .get('/getTransactionsByAccountName/' + 1 + '/' + 'SBI')
+      expect(response.body).to.have.property('success').to.equal(true)
+      expect(response).to.have.status(200)
+    });
+    it("it should throw an error if user id is invalid", async () => {
+      const response = await chai
+        .request(app)
+        .get('/getTransactionsByAccountName/' + 1 + '/'+ undefined)
+      expect(response.body).to.have.property('success').to.equal(false)
+      expect(response).to.have.status(500);
+    });
+    it("it should throw an error if accountName is invalid", async () => {
+      const response = await chai
+        .request(app)
+        .get('/getTransactionsByAccountName/' + undefined + '/' + 'SBI')
+      expect(response.body).to.have.property('success').to.equal(false)
+      expect(response).to.have.status(500);
+    });
+  });
