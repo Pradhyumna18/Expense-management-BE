@@ -25,10 +25,7 @@ async function addAccount(req, res, next) {
         }
         else {
             logger.error("addAccount.failed.as.accountName.already.exist")
-            res.status(400).json({
-                success: false,
-                message: "Account already exist!"
-            })
+            response(res,401, "Account already exist!")
         }
     }
 

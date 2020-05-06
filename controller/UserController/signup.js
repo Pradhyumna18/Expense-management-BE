@@ -1,6 +1,7 @@
 const models = require('../../models')
 let passwordHash = require('password-hash')
 const logger=require('../../log')
+const response=require('../../helper/response')
 /** @description creates a new user with username and password.
  * @param {object} req - Request object containing username and password.
  * @param {object} res - Response object with a boolean variable success and user if request is success else  error message .
@@ -29,13 +30,8 @@ async function SignUp(req, res, next) {
             logger.info("signup.successful")
         }
         else {
-            res.status(400).json(
-                {
-                    success: false,
-                    message: "User already exist!"
-                }
-            );
-            logger.warn("signup.request.failed.as.user.already.exist")
+            response(res,400,"User already exist!")
+            logger.error("signup.request.failed.as.user.already.exist")
         }
     }
     catch (err) {

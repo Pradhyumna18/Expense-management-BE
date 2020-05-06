@@ -6,6 +6,7 @@ const routes = require('./Routes/routes')
 const cors = require('cors')
 dotenv.config()
 const port = process.env.PORT
+console.log(app.get('env'))
 app.use(bodyparser.json())
 app.use(cors())
 app.use('/', routes)

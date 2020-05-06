@@ -1,5 +1,6 @@
 const Joi = require('joi');
 const logger=require('../log')
+const response=require('../helper/response')
 const addAccountValidation = async (req, res, next) => {
 
     try {
@@ -14,11 +15,8 @@ const addAccountValidation = async (req, res, next) => {
     }
     catch (error) {
         logger.error(error.details[0].message)
-        res.status(400).json({
-            success: false,
-            message: error.details[0].message,
-            
-        })
+        response(res,400,error.details[0].message)
+      
     }
 }
 

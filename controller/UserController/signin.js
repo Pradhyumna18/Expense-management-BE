@@ -2,6 +2,7 @@ const models = require('../../models')
 let jwt = require('jsonwebtoken')
 const passwordHash = require('password-hash')
 const logger = require('../../log')
+const response=require('../../helper/response')
 /** @description logins a user if username and password are correct.
  * @param {object} req - Request object with username and password.
  * @param {object} res - Response object with a boolean variable success and token if request is success or error message if there is an error.
@@ -19,10 +20,7 @@ async function SignIn(req, res, next) {
         if (user) {
             const bool = passwordHash.verify(req.body.password, user.password);
             if (!bool) {
-                res.status(401).json({
-                    success: false,
-                    message: "username or password incorrect"
-                })
+                response(res,401,"username or password incorrect")
                 logger.error(req.url)
                 logger.error("signin.request.failed.as.username.or.password.incorrect")
             }
@@ -36,10 +34,7 @@ async function SignIn(req, res, next) {
             }
         }
         else {
-            res.status(401).json({
-                success: false,
-                message: "username or password incorrect"
-            })
+            response(res,401,"username or password incorrect")
             logger.error(req.url)
             logger.error("signin.request.failed.as.username.or.password.incorrect")
         }
