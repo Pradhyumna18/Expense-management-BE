@@ -7,7 +7,7 @@ describe("DELETE /deleteTransaction", () => {
     it("it should delete a transaction", async () => {
       const response = await chai
         .request(app)
-        .delete("/deleteTransaction/"+2)
+        .delete("/deleteTransaction/"+265)
       expect(response.body).to.have.property('success').to.equal(true)
       expect(response).to.have.status(200)
     });

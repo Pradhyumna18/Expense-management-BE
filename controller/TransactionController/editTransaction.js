@@ -1,5 +1,6 @@
 const models = require('../../models')
 const logger=require('../../log')
+const {decodeToken}=require('../../helper/helper')
 /** @description Edits a transaction based on transactionId.
  * @param {object} req - Request object with userId,accountName,transactionType,amount,date,description,transactionId.
  * @param {object} res - Response object with a boolean variable success if request is success else error.
@@ -10,9 +11,10 @@ const logger=require('../../log')
 async function editTransaction(req, res, next) {
     try {
         logger.info(req.url)
+        const payload=decodeToken(req.body.token)
         const account = await models.Accounts.findOne({
             where: {
-                userId: req.body.userId,
+                userId: payload.userId,
                 accountName: req.body.accountName
             }
         })

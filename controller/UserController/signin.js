@@ -2,7 +2,7 @@ const models = require('../../models')
 let jwt = require('jsonwebtoken')
 const passwordHash = require('password-hash')
 const logger = require('../../log')
-const response=require('../../helper/response')
+const {response}=require('../../helper/helper')
 /** @description logins a user if username and password are correct.
  * @param {object} req - Request object with username and password.
  * @param {object} res - Response object with a boolean variable success and token if request is success or error message if there is an error.

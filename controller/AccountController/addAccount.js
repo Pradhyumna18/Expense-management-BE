@@ -1,5 +1,6 @@
 const models = require('../../models')
 const logger = require('../../log')
+const { decodeToken, response } = require('../../helper/helper')
 /** @description Adds a new account with accountName and startingBalance.
  * @param {object} req - Request object with accountName and startingBalance.
  * @param {object} res - Response object with a boolean variable success  if request is success else  error message.
@@ -8,14 +9,17 @@ const logger = require('../../log')
 */
 async function addAccount(req, res, next) {
     try {
+       
         logger.info(req.url)
+        const payload = decodeToken(req.body.token)
         const account = await models.Accounts.findOne({
             where: {
                 accountName: req.body.accountName,
-                userId: req.body.userId
+                userId: payload.userId
             }
         })
         if (!account) {
+            req.body = { ...req.body, userId: payload.userId }
             const account = await models.Accounts.create(req.body)
             res.status(201).json({
                 success: true,
@@ -25,7 +29,7 @@ async function addAccount(req, res, next) {
         }
         else {
             logger.error("addAccount.failed.as.accountName.already.exist")
-            response(res,401, "Account already exist!")
+            response(res, 400, "Account already exist!")
         }
     }
 

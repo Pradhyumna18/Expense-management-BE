@@ -1,5 +1,6 @@
 const models = require('../../models')
 const logger=require('../../log')
+const {decodeToken}=require('../../helper/helper')
 /** @description Gives account balance of a account.
  * @param {object} req - Request object with account name and userId.
  * @param {object} res - Response object with a boolean variable success and balance if request is success else error message.
@@ -9,9 +10,10 @@ const logger=require('../../log')
 async function getAccountBalance(req, res, next) {
     try {
         logger.info(req.url)
+        const payload=decodeToken(req.params.token)
         const account = await models.Accounts.findAll({
             where: {
-                userId: req.params.userId,
+                userId: payload.userId,
                 accountName: req.params.accountName
             }
         })

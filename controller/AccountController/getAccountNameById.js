@@ -1,5 +1,4 @@
 const models = require('../../models')
-const jwt = require('jsonwebtoken')
 const logger=require('../../log')
 /** @description gives account name based on the accountId.
  * @param {object} req - Request object with userId and accountId.
@@ -12,7 +11,7 @@ async function getAccountNameById(req, res, next) {
         logger.info(req.url)
         const account = await models.Accounts.findAll({
             where: {
-                userId: req.params.userId,
+                
                 id: req.params.accountId
             }
         })

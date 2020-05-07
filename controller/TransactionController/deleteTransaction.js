@@ -1,5 +1,4 @@
 const models = require('../../models')
-const jwt = require('jsonwebtoken')
 const logger=require('../../log')
 /** @description Deletes a transaction based on the transactionId.
  * @param {object} req - Request object with transactionId.

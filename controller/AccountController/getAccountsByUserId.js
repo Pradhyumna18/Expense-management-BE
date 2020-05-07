@@ -1,5 +1,6 @@
 const models = require('../../models')
-const logger=require('../../log')
+const logger = require('../../log')
+const { decodeToken } = require('../../helper/helper')
 /** @description gets account details based on the userId.
  * @param {object} req - Request object with userId.
  * @param {object} res - Response object with a boolean variable success and required accounts if request is success else error message.
@@ -9,10 +10,10 @@ const logger=require('../../log')
 async function getAccountsByUserId(req, res, next) {
     try {
         logger.info(req.url)
-
+        const payload = decodeToken(req.params.token)
         const accounts = await models.Accounts.findAll({
             where: {
-                userId: req.params.userId
+                userId: payload.userId
             }
         })
         res.status(200).json({

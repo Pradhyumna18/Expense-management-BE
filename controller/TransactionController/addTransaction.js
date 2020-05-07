@@ -1,5 +1,6 @@
 const models = require('../../models')
-const logger=require('../../log')
+const logger = require('../../log')
+const { decodeToken } = require('../../helper/helper')
 /** @description Adds transaction with details of the transaction.
  * @param {object} req - Request object with userId,accountName,transactionType,amount,date,description.
  * @param {object} res - Response object with a boolean variable success if request is success else error .
@@ -9,10 +10,10 @@ const logger=require('../../log')
 async function addTransaction(req, res, next) {
     try {
         logger.info(req.url)
-
+        const payload = decodeToken(req.body.token)
         const account = await models.Accounts.findOne({
             where: {
-                userId: req.body.userId,
+                userId: payload.userId,
                 accountName: req.body.accountName
             }
         })
@@ -26,7 +27,8 @@ async function addTransaction(req, res, next) {
             await account.update({ accountBalance: bal })
         }
         delete req.body.accountName
-        req.body = { ...req.body, accountId: account.id }
+        delete req.body.token
+        req.body = { ...req.body, accountId: account.id, userId: payload.userId }
         const transaction = await models.Transactions.create(req.body)
         res.status(201).json({
             success: true,

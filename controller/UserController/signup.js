@@ -1,7 +1,7 @@
 const models = require('../../models')
 let passwordHash = require('password-hash')
 const logger=require('../../log')
-const response=require('../../helper/response')
+const {response}=require('../../helper/helper')
 /** @description creates a new user with username and password.
  * @param {object} req - Request object containing username and password.
  * @param {object} res - Response object with a boolean variable success and user if request is success else  error message .
@@ -35,6 +35,7 @@ async function SignUp(req, res, next) {
         }
     }
     catch (err) {
+        console.log(err)
         logger.error(req.url)
         logger.error(err.name)
        next(err)

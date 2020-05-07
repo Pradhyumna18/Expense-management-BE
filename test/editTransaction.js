@@ -9,13 +9,13 @@ describe("PUT /editTransaction", () => {
         .request(app)
         .put("/editTransaction")
         .send({
-          "transactionId":3,
+          "transactionId":266,
           "transactionType":"expense",
           "description" : "groceries",
           "amount" : 350,
           "accountName":"SBI",
           "date" : "4-16-2020",
-          "userId":1
+          "token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6InByYUBnbWFpbC5jb20iLCJ1c2VySWQiOjM2LCJpYXQiOjE1ODg3NzE1NjZ9.ypHApBSOyao2fvTJ2p7bDMcWtXH6HAZ3DYyefGB1aAI"
         })
       expect(response).to.have.status(200)
       expect(response.body).to.have.property('success').to.equal(true)
@@ -31,7 +31,7 @@ describe("PUT /editTransaction", () => {
           "amount" : 350,
           "accountName":"SBI",
           "date" : "4-16-2020",
-          "userId":1
+          "token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6InByYUBnbWFpbC5jb20iLCJ1c2VySWQiOjM2LCJpYXQiOjE1ODg3NzE1NjZ9.ypHApBSOyao2fvTJ2p7bDMcWtXH6HAZ3DYyefGB1aAI"
         })
       expect(response).to.have.status(500);
       expect(response.body).to.have.property('success').to.equal(false)

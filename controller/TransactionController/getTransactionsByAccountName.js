@@ -1,6 +1,6 @@
 const models = require('../../models')
 const logger=require('../../log')
-
+const {decodeToken}=require('../../helper/helper')
 /** @description Gets transactions based on the account name.
  * @param {object} req - Request object with userId and accountName.
  * @param {object} res - Response object with a boolean variable success and array of transactions if request is success else error.
@@ -11,9 +11,10 @@ const logger=require('../../log')
 async function getTransactionsByAccountName(req, res, next) {
     try {
         logger.info(req.url)
+        const payload=decodeToken(req.params.token)
         const account = await models.Accounts.findOne({
             where: {
-                userId: req.params.userId,
+                userId: payload.userId,
                 accountName: req.params.accountName
             }
         })

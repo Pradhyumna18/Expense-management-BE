@@ -8,7 +8,7 @@ describe("GET /transactionByUserId", () => {
   it("it should return transactions by UserId", async () => {
     const response = await chai
       .request(app)
-      .get('/getTransactions/' + 1)
+      .get('/getTransactions/' + "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6InByYUBnbWFpbC5jb20iLCJ1c2VySWQiOjM2LCJpYXQiOjE1ODg3NzE1NjZ9.ypHApBSOyao2fvTJ2p7bDMcWtXH6HAZ3DYyefGB1aAI")
     expect(response.body).to.have.property('success').to.equal(true)
     expect(response).to.have.status(200)
   });

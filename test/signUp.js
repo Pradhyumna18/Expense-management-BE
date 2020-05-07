@@ -15,7 +15,7 @@ describe("POST /signup",function() {
   });
   it("it should throw an error if User already exist", async () => {
     const response = await chai.request(app).post("/signup").send({
-      "userName": "prad@gmail.com",
+      "userName": "pra@gmail.com",
       "password": "b2@b.b"
     })
       expect(response).to.have.status(400);
@@ -23,7 +23,7 @@ describe("POST /signup",function() {
   });
   it("it should throw an error if username is invalid", async () => {
     const response = await chai.request(app).post("/signup").send({
-      "userName": undefined,
+      "userName": "pp",
       "password": "b2@b.b"
     })
       expect(response).to.have.status(400);
