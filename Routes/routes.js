@@ -24,16 +24,16 @@ routes.post('/signup',signUpValidator,signup)
 routes.post('/signin',signin)
 
 routes.post('/addAccount',addAccountValidator,addAccount)
-routes.get('/getAccountsByUserId/:token',getAccountsByUserId)
-routes.get('/getAccountBalance/:token/:accountName',getAccountBalance)
+routes.get('/getAccountsByUserId',getAccountsByUserId)
+routes.get('/getAccountBalance/:accountName',getAccountBalance)
 routes.get('/getAccountNameById/:accountId',getAccountNameById)
 
 routes.post('/addTransaction',addTransactionValidator,addTransaction)
 routes.put('/editTransaction',editTransaction)
 routes.delete('/deleteTransaction/:transactionId',deleteTransaction)
-routes.get('/getTransactionsByAccountName/:token/:accountName',getTransactionsByAccountName)
+routes.get('/getTransactionsByAccountName/:accountName',getTransactionsByAccountName)
 routes.get('/getTransactionById/:transactionId',getTransactionById)
-routes.get('/getTransactions/:token',getTransactions)
+routes.get('/getTransactions',getTransactions)
 
 module.exports=routes;
 

@@ -10,7 +10,7 @@ const {decodeToken}=require('../../helper/helper')
 async function getTransactions(req, res, next) {
     try {
         logger.info(req.url)
-        const payload=decodeToken(req.params.token)
+        const payload=decodeToken(req.headers.authorization)
         const transactions = await models.Transactions.findAll({
             where: {
                 userId: payload.userId

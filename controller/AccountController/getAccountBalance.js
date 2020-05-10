@@ -10,7 +10,7 @@ const {decodeToken}=require('../../helper/helper')
 async function getAccountBalance(req, res, next) {
     try {
         logger.info(req.url)
-        const payload=decodeToken(req.params.token)
+        const payload=decodeToken(req.headers.authorization)
         const account = await models.Accounts.findAll({
             where: {
                 userId: payload.userId,

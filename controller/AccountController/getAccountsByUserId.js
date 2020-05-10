@@ -10,7 +10,8 @@ const { decodeToken } = require('../../helper/helper')
 async function getAccountsByUserId(req, res, next) {
     try {
         logger.info(req.url)
-        const payload = decodeToken(req.params.token)
+        console.log(req.headers.authorization)
+        const payload = decodeToken(req.headers.authorization)
         const accounts = await models.Accounts.findAll({
             where: {
                 userId: payload.userId
